@@ -209,19 +209,28 @@ pageEncoding="ISO-8859-1"%>
 
 <%
 String first_name=request.getParameter("first_name");
-first_name=encode(first_name);
 String last_name=request.getParameter("last_name");
-last_name=encode(last_name);
+String name=first_name.concat(last_name);
+name=encode(name);
+String panno=request.getParameter("panno");
+panno=encode(panno);
+char gender=request.getParameter("gender").charAt(0);
+String dob=request.getParameter("dob");
 String address=request.getParameter("address");
+String city=request.getParameter("city");
+String state=request.getParameter("state");
+String country=request.getParameter("country");
+int pincode=Integer.parseInt(request.getParameter("pincode"));
+String mobile=(request.getParameter("mobile"));
 String email=request.getParameter("email");
 String email1=encode(email);
-String adharno=(request.getParameter("adharno"));
-char gender=request.getParameter("email").charAt(0);
-int age=Integer.parseInt(request.getParameter("age"));
-String mobile=(request.getParameter("mobile"));
-int pincode=Integer.parseInt(request.getParameter("pincode"));
-
-
+String marital_status=request.getParameter("marital_status");
+String annual_salary=request.getParameter("annual_salary");
+String designation=request.getParameter("designation");
+String noe=request.getParameter("noe");
+String nod=request.getParameter("nod");
+String earners=request.getParameter("earners");
+String annual_expenses=request.getParameter("annual_expenses");
 
 try
 {
@@ -229,13 +238,17 @@ Class.forName("com.mysql.jdbc.Driver");
 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dmproject", "root", "root");
 Statement st=conn.createStatement();
 //,adharno,gender,age,mobno,annualsalary,natureofemployment,noofearners,noofdependents
- int i=st.executeUpdate("insert into registration(firstname,lastname,address,adharno,gender,age,mobile,pincode,emailid)values('"+first_name+"','"+last_name+"','"+address+"','"+adharno+"','"+gender+"','"+age+"','"+mobile+"','"+pincode+"','"+email1+ "')");
+ int i=st.executeUpdate("insert into employeedim(Name,PAN_No,Gender,DOB,Address1,City,State,Country,Pincode,MobNo,email_Id,MaritalStatus,Annual_Salary,Designation,NatureOfEmployement,NoOfDependents,NoOfEarners,MonthlyExpenses)values('"+name+"','"+panno+"','"+gender+"','"+dob+"','"+address+"','"+city+"','"+state+"','"+country+"','"+pincode+"','"+mobile+"','"+email1+"','"+marital_status+"','"+annual_salary+"','"+designation+"','"+noe+"','"+nod+"','"+earners+"','"+annual_expenses+ "')");
  		//"','"+gender+"','"+age+"','"+mobile+"','"+salary+","+noe+"','"+earners+"','"+dependents+
 // 		"')");
 
 sendmail(email,email1);
 out.println("Data is successfully inserted!,token sent");
 
+}
+catch(SQLIntegrityConstraintViolationException e) 
+{
+	  out.println("You have already registered");
 }
 catch(Exception e)
 {
@@ -244,3 +257,4 @@ e.printStackTrace();
 }
 
 %>
+
