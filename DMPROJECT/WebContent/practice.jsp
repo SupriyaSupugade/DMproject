@@ -38,6 +38,11 @@ e.printStackTrace();
 		<input type="hidden" value="<%=id%>" name="empval"/>
 		<%session.setAttribute("empid", id); %>
 	</form>
+	<form>
+		Download Excel File<br>
+		<a href="DownloadFile.jsp" download>Download</a><br>
+	</form>
+	
 	<form action="fileupload" method="post" enctype="multipart/form-data">
 		Enter file: <input type="file" accept=".xlsx, .xls, .csv" name="input" />
 		<input type="submit" value="submit"/>
