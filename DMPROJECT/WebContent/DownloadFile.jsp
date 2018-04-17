@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.io.*,java.util.*"%>
 <%
- String filename="Book.xls";
+ String filename="Book.xlsx";
 String filepath="C:\\Users\\himesh\\Desktop\\dmfiles\\";
 response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");   
 response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
