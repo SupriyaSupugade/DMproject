@@ -18,6 +18,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 public class excelfile {
 	@SuppressWarnings("deprecation")
 	public static long dateToInt(String date){
@@ -90,20 +93,25 @@ public class excelfile {
 	{
 		FileInputStream fis;
 		try {
+			String s="C:\\Users\\himesh\\Desktop\\dmfiles\\"+bookname;
 			fis = new FileInputStream(new File("C:\\Users\\himesh\\Desktop\\dmfiles\\"+bookname));
+		String s2[]=s.split(".");
 		
-		HSSFWorkbook wb=new HSSFWorkbook(fis);
+		
+			
+		
 		
 		Class.forName("com.mysql.jdbc.Driver");
 		Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/dmproject", "root", "root");
 		Statement st=conn.createStatement();
 		//,adharno,gender,age,mobno,annualsalary,natureofemployment,noofearners,noofdependents
 		 
-		
-		HSSFSheet sheet=wb.getSheetAt(0);
-		HSSFSheet sheet2=wb.getSheetAt(1);
-		HSSFSheet sheet3=wb.getSheetAt(2);
-		
+		XSSFWorkbook wb=new XSSFWorkbook(fis);
+		XSSFSheet sheet=wb.getSheetAt(0);
+		XSSFSheet sheet2=wb.getSheetAt(1);
+		XSSFSheet sheet3=wb.getSheetAt(2);
+		 
+		 
 		FormulaEvaluator fe=wb.getCreationHelper().createFormulaEvaluator();
 		
 		int i=1;

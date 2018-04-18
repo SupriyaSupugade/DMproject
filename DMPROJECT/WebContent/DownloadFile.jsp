@@ -6,12 +6,12 @@
 String filepath="C:\\Users\\himesh\\Desktop\\dmfiles\\";
 response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");   
 response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
-
-FileInputStream fileInputStream=new FileInputStream(filepath + filename);  
-          
-int i;   
+PrintWriter out1=response.getWriter();
+FileInputStream fileInputStream=new FileInputStream(filepath + filename); 
+int i;
+System.out.println(filepath+filename);
 while ((i=fileInputStream.read()) != -1) {  
-  out.write(i);   
+  out1.write(i);   
 }   
 fileInputStream.close();   
 %>
