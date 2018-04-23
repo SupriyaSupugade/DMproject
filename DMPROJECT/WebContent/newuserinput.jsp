@@ -6,7 +6,18 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
 <%@page import="java.security.*" %>
 
-
+<%!
+	public String anonymize(String name,String type)
+	{
+		switch(type)
+		{
+		case "encryption": return cryptWithMD5(name);
+		case "random": return random(name);
+		}
+		return "";
+	}
+	
+%>
 
 <%!
 	
@@ -72,14 +83,35 @@ public String cryptWithMD5(String pass){
         
 }
 %>
+<%!
+	public String random(String s)
+	{
+		String s2="";
+		for(int i=0;i<s.length();i++)
+		{
+			Random random = new Random();
+			int index = random.nextInt(25);
+
+			String [] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L","M", "N","O","P","Q", "R", "S", "T", "U", "V","W", "X","Y","Z"};
+
+			s2 =s2+ alphabets[index];
+			
+		}
+		return s2;
+	}
+%>
+
+
 
 <%
+String anon=request.getParameter("anonymization");
+
 String first_name=request.getParameter("first_name");
 String last_name=request.getParameter("last_name");
 String name=first_name.concat(last_name);
-name=cryptWithMD5(name);
+name=anonymize(name,anon);
 String panno=request.getParameter("panno");
-panno=cryptWithMD5(panno);
+panno=anonymize(panno,anon);
 char gender=request.getParameter("gender").charAt(0);
 String dob=request.getParameter("dob");
 String address=request.getParameter("address");
@@ -89,7 +121,7 @@ String country=request.getParameter("country");
 int pincode=Integer.parseInt(request.getParameter("pincode"));
 String mobile=(request.getParameter("mobile"));
 String email=request.getParameter("email");
-String email1=cryptWithMD5(email);
+String email1=anonymize(email,anon);
 String marital_status=request.getParameter("marital_status");
 String annual_salary=request.getParameter("annual_salary");
 String designation=request.getParameter("designation");
